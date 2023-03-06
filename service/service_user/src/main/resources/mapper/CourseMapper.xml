@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbit.studyweb.mapper.CourseMapper">
+    <resultMap id="courseMap" type="com.rabbit.model.pojo.Course">
+        <id column="id" property="id"></id>
+        <result column="teacher_id" property="teacherId"></result>
+        <result column="subject_id" property="subjectId"></result>
+        <result column="subject_pid" property="subjectPid"></result>
+        <result column="title" property="title"></result>
+        <result column="cover" property="cover"></result>
+        <result column="buy_count" property="buyCount"></result>
+        <result column="status" property="status"></result>
+        <result column="publish_time" property="publishTime"></result>
+        <result column="description" property="description"></result>
+        <result column="sub_title" property="subTitle"></result>
+    </resultMap>
+    <select id="selectCourseQuery" resultMap="courseMap">
+        select c.* from sys_course c,sys_teacher t
+        <where>
+            <if test="searchText !=null">
+                c.teacher_id=t.id
+                and concat(c.title,c.sub_title,t.name) like concat('%',#{searchText},'%')
+            </if>
+            <if test="ids != null">
+                <!-- 循环传入的集合参数
+					 collection:传入参数中的集合的变量名称
+					 item:每次循环从集合中取出的数据保存到item中
+					 open:循环开始拼接的字符串
+					 close:循环结束拼接的字符串
+					 separator:循环中拼接的分隔符
+				 -->
+                <foreach collection="ids" item="id" open="and c.id in(" close=")" separator=",">
+                    #{id}
+                </foreach>
+
+            </if>
+        </where>
+    </select>
+</mapper>

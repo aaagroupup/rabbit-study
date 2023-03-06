@@ -1,0 +1,38 @@
+server:
+  port: 9381
+spring:
+  application:
+    name: service-gateway
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: sun2559525655
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: service-live # 路由id，自定义，只要唯一即可
+          #uri: http://127.0.0.1:9380 # 路由的目标地址 http就是固定地址
+          uri: lb://service-live
+          predicates: # 路由断言，也就是判断请求是否符合路由规则的条件
+            - Path=/live/** # 这个是按照路径匹配，只要以/user/开头就符合要求
+        - id: service-vod
+          uri: lb://service-vod
+          #uri: http://127.0.0.1:9382
+          predicates:
+            - Path=/vod/**
+        - id: service-user
+          uri: lb://service-user
+          #uri: http://127.0.0.1:9383
+          predicates:
+            - Path=/**
+  main:
+    web-application-type: reactive

@@ -1,0 +1,111 @@
+server:
+  port: 9383
+spring:
+  application:
+    name: service-user
+  servlet:
+    multipart:
+      max-file-size: 100MB #单个文件上传大小,默认1M
+      max-request-size: 100MB #总文件上传大小，默认10M
+      enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: sun2559525655
+  cloud:
+    nacos:
+      server-addr: localhost:8848 #nacos地址  #80
+
+  #读写分离
+  #  shardingsphere:
+  #    datasource:
+  #      names:
+  #        master,slave
+  #      # 主数据源
+  #      master:
+  #        type: com.alibaba.druid.pool.DruidDataSource
+  #        driver-class-name: com.mysql.cj.jdbc.Driver
+  #        url: jdbc:mysql://192.168.72.137:3307/easyproject?characterEncoding=utf-8
+  #        username: root
+  #        password: root
+  #      # 从数据源
+  #      slave:
+  #        type: com.alibaba.druid.pool.DruidDataSource
+  #        driver-class-name: com.mysql.cj.jdbc.Driver
+  #        url: jdbc:mysql://192.168.72.137:3308/easyproject?characterEncoding=utf-8
+  #        username: root
+  #        password: root
+  #    masterslave:
+  #      # 读写分离配置
+  #      load-balance-algorithm-type: round_robin
+  #      # 最终的数据源名称
+  #      name: dataSource
+  #      # 主库数据源名称
+  #      master-data-source-name: master
+  #      # 从库数据源名称列表，多个逗号分隔
+  #      slave-data-source-names: slave
+  #    props:
+  #      sql:
+  #        show: true #开启SQL显示，默认false
+  #  main:
+  #    allow-bean-definition-overriding: true
+
+
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    #host: 127.0.0.1
+    port: 6379
+    #password: sun255952
+    database: 0
+  cache:
+    redis:
+      time-to-live: 1800000
+    type: redis
+
+#mybatis配置
+mybatis-plus:
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+
+#存储位置
+studyweb:
+  endpoint: https://oss-cn-hangzhou.aliyuncs.com
+  secretid: LTAI5tPHmsCxAeSo9NqC2b8b
+  secretkey: PXFQ9rgisybURtmMR6lJqcllAqNiHb
+  bucketname: rabbit-studyweb
+  path: https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/
+
+
+#阿里云支付配置
+alipay:
+  appId: 2016102600763473
+  appPrivateKey: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDDVLnhmbCGYwRfe+8K0KPVyxeZIXlK095HAW9Aiuq9tb3ikDh4zlxoJzmv+rUZtRQestoo7PCYNUTb2vaDOv9WaJ+vfkPSHl7+rx0PsG0fFPeIRyTHTQtjpLBEq1kuXojcnSCO41rhygmb3MJNYEZTLY+BdeaTMzWLSaL0O/ivmM4OvvhWdEhHUL7kotWL5b+jXAxu4bfJvlijAHt/7M7S3XPs70WfZpv6bYtnsz2tS0J7p3rVXVeYHIClIMpCgDUKzg2+O6CNoQBURLMjUNgcd8dYPU/i3ZbmDN2tAbm4qAaZAFNvvixkiQ8GmbXfQjQdrHRXsndWhaXsrIZrFHTHAgMBAAECggEBAK+QgrZUZkaTzwVnpnZpCykJLv+zB4sLHVli37T6Z3z2UmLGUAu9J29x+jbDN22QxTHGfbGVLbcRAgA+MZ3INGJdDVI2Qg0kwStXB97nK11pggcaMuNzy03XY5uFC1ZTH95y2CW2EiSpbLOL25SiePMgG0E4UHNz7qdwGyg8kwx3zgIKgp4GEbqCwAn+bXyI2svvql53nBzE0x6OPmUNWu+8OuysEtWLwjjDff9ft9pGb4+QUPdxbp0rqE3dEe5FwirsLeEodg2R/Yi3m2192pMyMeLf3rd38trJ8nmb6JlnKGzST23BtEB2ia6gVOtQHS703WrrCx6iICCVUYHwDCECgYEA+oA/rikrDi6pe76rtMZ5rVDRPaha/xfcW9vMLsoRLb7YuEP/BwbmUNq5TtM4BgSCSrTD6XUg0wPSX4BijvgeqFpBJAvQ90kTEfXGZnr2r2f635Bfo02mQr5IhyhPIKMJaM5wQVW1Op+Lx+eaa4j2BwcWNzt7F6AV/qPBwvPYHLECgYEAx55vn7z92fBfa7yNMm3XKNFxXo6uNN70iD5MyzdcTPuqz9R9UlCo1XIJGgV3C1bK4X2f+zFijtm8tqor+Q1N0j1hZKFW/YlF21/FPP6JPjniax/phegRwZ5jEuI/YF44YvkMbO6yPNqxsR+JO9lhgiW/8gnnmVDQIYRNjTfWpvcCgYEAuj6cGgr1vgenbx+mXjOqx9dsmqEPdtXwukNDHg6SkyZvzyCO/lR87OSSHi8gWikEDjMz7eFt1DXlNagonw+PC7B++iPm69Ri31mSdyM5QdTXS1z2Hl5fHQSIvCSWIDfXiRrjj0///GQe8zQZNZaRBUyZkdshe8FEWRy7tQzDQyECgYEAgYYQL7nVjUAm6iUiCQK0hUvBH/W8m5m/WVfzRDjbryftIYVi+7JSmoyv0y6Qm87pPX7h+3+Dz+UAShYJCkTTpgMl2sHFTCVyKnHt7THLo5CzlYbTY4u9WcCH0Iz1SnZYZ//pTBVlmY7dlWw9A5R9bJFKBqbem+CP6++I0oTUxukCgYEApmooMXYoXPIbEHiWxGzUEOFaOsGJaYEOIcJjbUqB+FoS2wFdPdKyomjwOF83+j3orPEL5SSXbMIRyxZNcuJAvXeEwJ6byx6d6txli1vfVfcfgn8YIaCZdYTgRTNGYYC4c6WrQ5Rt1kWO4oTVPPAsk2WT7sD99PpIFer5y3ICbkw=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmydAaVLYbtvWKdaZhN0zDAi8sym6nfCwO18hQfZZOtwIFoR90+CkxNCOtoLOPC3+ksB6wwoqzhn33v4cTkzmHJjhlN9MFVhCYWIw4z0RkjvE1snlMi8F+lynPIv9kRUDnv5N9tabagfmouuhJZ1Ly145yT+2MBOy20Jueaqj01xFak+kzgjqK4K/8Cid4kfLCj7t8btiOFWexfXy5ZLJHOsOvaiyrwkI7+pDe9eKiEwZQ7ixqwO6PSQsVf1swOjZMi30Lj8RcfsfrH9XAx7X2t1Qj945QEcCnT725gBqEJUmUb9bCpD9ioSas/USNqFMgS/iJ8n0gnAK1N8vueSykQIDAQAB
+  notifyUrl: http://39.108.175.146:9000/aliPay/notify
+  returnUrl: http://39.108.175.146:80/front/order
+
+zhenzikj:
+  url: https://sms_developer.zhenzikj.com
+  appId: 111882
+  appSecret: f52558f7-d9a1-485d-b195-6641308504b0
+  templateId: 9714
+ribbon:
+  eager-load:
+    enabled: true
+    clients: servicevod #指定饥饿加载的服务名称
+feign:
+  httpclient:
+    enabled: true #开启feign对HttpClient的支持
+    max-connections: 200 # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
