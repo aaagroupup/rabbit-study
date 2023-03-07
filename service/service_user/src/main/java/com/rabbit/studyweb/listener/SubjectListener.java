@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
+
 @Configuration
 public class SubjectListener extends AnalysisEventListener<SubjectEeVo> {
 
@@ -20,6 +22,8 @@ public class SubjectListener extends AnalysisEventListener<SubjectEeVo> {
     public void invoke(SubjectEeVo subjectEeVo, AnalysisContext analysisContext) {
         Subject subject = new Subject();
         BeanUtils.copyProperties(subjectEeVo,subject);
+        subject.setCreateTime(new Date().toString());
+        subject.setUpdateTime(null);
         subjectMapper.insert(subject);
     }
 

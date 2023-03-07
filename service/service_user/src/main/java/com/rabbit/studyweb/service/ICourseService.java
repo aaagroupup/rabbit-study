@@ -2,6 +2,7 @@ package com.rabbit.studyweb.service;
 
 import com.rabbit.model.pojo.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 
 import java.util.List;
@@ -29,9 +30,9 @@ public interface ICourseService extends IService<Course> {
 
     List<Course> getCourseListByIds(List<Long> courseIds);
 
-    List<Course> getFreeCourseList();
-
     List<Course> getUserFreeCourseList();
 
     List<Course> getCourseQuery(String searchText,List<Long> courseIds);
+
+    List<SubjectDTO> getSubjectAndCourse();
 }

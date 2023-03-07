@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.rabbit")
 @EnableFeignClients
-public class UserApplication {
+public class RabbitStudyWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(RabbitStudyWebApplication.class, args);
     }
 
 }

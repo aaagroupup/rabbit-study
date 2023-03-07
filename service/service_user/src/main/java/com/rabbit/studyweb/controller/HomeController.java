@@ -4,6 +4,7 @@ import com.rabbit.model.pojo.Advertise;
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.dto.HomeMenusBannerDTO;
 import com.rabbit.model.pojo.dto.HomeMenusDTO;
+import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.studyweb.result.R;
 import com.rabbit.studyweb.service.IAdvertiseService;
 import com.rabbit.studyweb.service.ICourseService;
@@ -44,9 +45,16 @@ public class HomeController {
         List<Advertise> advertiseList = advertiseService.getBanners();
         homeMenusBannerDTO.setAdvertiseList(advertiseList);
 
-        //freeCourse
-        List<Course> freeCourseList = courseService.getFreeCourseList();
-        homeMenusBannerDTO.setFreeCourseList(freeCourseList);
         return R.success(homeMenusBannerDTO);
+    }
+
+    /**
+     * 获得学科下所有课程
+     * @return
+     */
+    @GetMapping("getSubjectAndCourse")
+    public R getSubjectAndCourse(){
+        List<SubjectDTO>  subjectDTOList=courseService.getSubjectAndCourse();
+        return R.success(subjectDTOList);
     }
 }

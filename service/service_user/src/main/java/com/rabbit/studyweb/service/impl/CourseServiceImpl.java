@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.Subject;
 import com.rabbit.model.pojo.Teacher;
+import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 import com.rabbit.studyweb.mapper.CourseMapper;
 import com.rabbit.model.pojo.UserCourse;
@@ -69,7 +70,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         IPage<Course> page=new Page<>(currentPage,pageSize);
         IPage<Course> courseIPage = courseMapper.selectPage(page, wrapper);
         List<Course> courseList = courseIPage.getRecords();
-        //List<Course> courseList = courseMapper.getCourseList(currentPage,pageSize, wrapper);
         int total =(int) this.count(wrapper);
         //将数据中的id转为对应的名称
         courseList.forEach(this::getNameById);
@@ -117,16 +117,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public List<Course> getCourseListByIds(List<Long> courseIds) {
         List<Course> courseList = this.listByIds(courseIds);
-        courseList.forEach(course -> course.getParam().put("teacherName", teacherService.getById(course.getTeacherId()).getName()));
+        getTeacherName(courseList);
         return courseList;
-    }
-
-    @Override
-    public List<Course> getFreeCourseList() {
-        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Course::getPrice,0.00)
-                .orderByDesc(Course::getPublishTime);
-        return baseMapper.selectList(wrapper);
     }
 
     @Override
@@ -138,7 +130,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<UserCourse> userCourseList = userCourseService.list(wrapper);
         List<Long> courseIds = userCourseList.stream().map(UserCourse::getCourseId).collect(Collectors.toList());
         List<Course> courseList = baseMapper.selectBatchIds(courseIds);
-        courseList.forEach(course -> course.getParam().put("teacherName",teacherService.getById(course.getTeacherId()).getName()));
+        getTeacherName(courseList);
         return courseList;
     }
 
@@ -150,9 +142,37 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             return this.getCourseListByIds(courseIds);
         }else{
             List<Course> courseList = baseMapper.selectCourseQuery(searchText, courseIds);
-            courseList.forEach(course -> course.getParam().put("teacherName",teacherService.getById(course.getTeacherId()).getName()));
+            getTeacherName(courseList);
             return courseList;
         }
+    }
+
+    //获得学科下所有课程
+    @Override
+    public List<SubjectDTO> getSubjectAndCourse() {
+        ArrayList<SubjectDTO> subjectDTOList = new ArrayList<>();
+        SubjectDTO subjectDTO;
+        List<Subject> subjectList = subjectService.list();
+        for (Subject subject : subjectList) {
+            subjectDTO = new SubjectDTO();
+            subjectDTO.setId(subject.getId());
+            subjectDTO.setTitle(subject.getTitle());
+            LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Course::getSubjectPid,subject.getId())
+                    .eq(Course::isStatus,1);
+            List<Course> courseList = this.list(wrapper);
+            if(!courseList.isEmpty()){
+                getTeacherName(courseList);
+                subjectDTO.setCourseList(courseList);
+                subjectDTOList.add(subjectDTO);
+            }
+        }
+        return subjectDTOList;
+    }
+
+    //转换讲师姓名
+    private void getTeacherName(List<Course> courseList) {
+        courseList.forEach(course -> course.getParam().put("teacherName", teacherService.getById(course.getTeacherId()).getName()));
     }
 
 

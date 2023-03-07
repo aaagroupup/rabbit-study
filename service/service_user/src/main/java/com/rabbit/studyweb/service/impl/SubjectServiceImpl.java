@@ -2,14 +2,12 @@ package com.rabbit.studyweb.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.Subject;
 import com.rabbit.model.pojo.dto.HomeMenusDTO;
 import com.rabbit.model.pojo.vo.SubjectEeVo;
 import com.rabbit.studyweb.exception.StudyWebException;
 import com.rabbit.studyweb.listener.SubjectListener;
 import com.rabbit.studyweb.mapper.SubjectMapper;
-import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.ISubjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -47,8 +45,8 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
         List<Subject> subjectList = subjectMapper.selectList(wrapper);
         for (Subject subject : subjectList) {
             Long subjectId = subject.getId();
-            boolean isClild= this.isChildren(subjectId);
-            subject.setHasChildren(isClild);
+            boolean isChild= this.isChildren(subjectId);
+            subject.setHasChildren(isChild);
         }
         return subjectList;
 
@@ -69,10 +67,6 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
             List<SubjectEeVo> subjectEeVoList = new ArrayList<>();
             for (Subject subject : subjectList) {
                 SubjectEeVo subjectEeVo = new SubjectEeVo();
-/*                subjectEeVo.setId(subject.getId());
-                subjectEeVo.setPid(subject.getPid());
-                subjectEeVo.setSort(subject.getSort());
-                subjectEeVo.setTitle(subject.getTitle());*/
                 BeanUtils.copyProperties(subject,subjectEeVo);
                 subjectEeVoList.add(subjectEeVo);
             }
