@@ -95,14 +95,14 @@ public class VideoController {
 
     //根据id查询 远程调用
     @ApiOperation("先根据课程id查询出视频,之后删除视频")
-    @GetMapping("getVideoAndRemove")
+    @DeleteMapping("getVideoAndRemove")
     public void getVideoAndRemove(Long id){
         videoService.getVideoAndRemove(id);
     }
 
     @ApiOperation("批量删除视频")
-    @GetMapping("delBatchVideo")
-    public void delBatchVideo(List<Integer> ids){
+    @DeleteMapping("delBatchVideo")
+    public void delBatchVideo(@RequestBody List<Integer> ids){
         videoService.delBatchVideo(ids);
     }
 
