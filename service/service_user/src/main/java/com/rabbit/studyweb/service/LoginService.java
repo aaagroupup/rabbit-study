@@ -7,4 +7,10 @@ import com.rabbit.studyweb.result.R;
 
 public interface LoginService {
     R<User> login(UserDTO user);
+
+    R<User> loginByTel(UserDTO userDTO);
+
+    R<Integer> sendMsg(String phone) throws Exception;
+
+    R<String> register(UserDTO userDTO);
 }
