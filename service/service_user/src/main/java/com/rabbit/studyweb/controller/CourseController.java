@@ -1,7 +1,6 @@
 package com.rabbit.studyweb.controller;
 
 import com.rabbit.model.pojo.Course;
-import com.rabbit.model.pojo.UserCourse;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 import com.rabbit.studyweb.clients.VodClient;
 import com.rabbit.studyweb.result.R;

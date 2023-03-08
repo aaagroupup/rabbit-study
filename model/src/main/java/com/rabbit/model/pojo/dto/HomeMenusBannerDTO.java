@@ -11,5 +11,5 @@ public class HomeMenusBannerDTO {
     
     private List<HomeMenusDTO> homeMenusList;
 
-    private List<Advertise> advertiseList;
+    private List<Course> advertiseList;
 }

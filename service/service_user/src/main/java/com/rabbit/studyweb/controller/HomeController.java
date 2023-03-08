@@ -41,8 +41,8 @@ public class HomeController {
         HomeMenusBannerDTO homeMenusBannerDTO = new HomeMenusBannerDTO();
         homeMenusBannerDTO.setHomeMenusList(list);
 
-        //banner
-        List<Advertise> advertiseList = advertiseService.getBanners();
+        //走马灯
+        List<Course> advertiseList = courseService.findTopThreeCourse();
         homeMenusBannerDTO.setAdvertiseList(advertiseList);
 
         return R.success(homeMenusBannerDTO);

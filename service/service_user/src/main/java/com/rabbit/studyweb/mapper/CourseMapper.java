@@ -1,6 +1,5 @@
 package com.rabbit.studyweb.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
@@ -22,4 +21,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     boolean updateState(Long id, Boolean status);
 
     List<Course> selectCourseQuery(String searchText,List<Long> ids);
+
+    @Select("select * from sys_course where `status`=1  order by buy_count desc  limit 3")
+    List<Course> findTopThree();
 }

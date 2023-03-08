@@ -37,4 +37,6 @@ public interface ICourseService extends IService<Course> {
     List<SubjectDTO> getSubjectAndCourse();
 
     boolean addFreeCourse(Integer userId, Long id);
+
+    List<Course> findTopThreeCourse();
 }

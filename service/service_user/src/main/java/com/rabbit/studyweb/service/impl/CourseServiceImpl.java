@@ -108,7 +108,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Course getCourseDetail(Long id) {
-        Course one = this.getById(id);
+        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Course::getId,id)
+                .eq(Course::isStatus,true);
+        Course one = baseMapper.selectOne(wrapper);
         Course course = getNameById(one);
         BeanUtils.copyProperties(one,course);
         return course;
@@ -181,6 +184,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         baseMapper.updateById(course);
 
         return userCourseService.save(userCourse);
+    }
+
+    //查询销售前三的课程
+    @Override
+    public List<Course> findTopThreeCourse() {
+        return baseMapper.findTopThree();
     }
 
     //转换讲师姓名
