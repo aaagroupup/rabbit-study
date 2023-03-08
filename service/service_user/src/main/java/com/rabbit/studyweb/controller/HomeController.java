@@ -1,12 +1,10 @@
 package com.rabbit.studyweb.controller;
 
-import com.rabbit.model.pojo.Advertise;
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.dto.HomeMenusBannerDTO;
 import com.rabbit.model.pojo.dto.HomeMenusDTO;
 import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.studyweb.result.R;
-import com.rabbit.studyweb.service.IAdvertiseService;
 import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.ISubjectService;
 import io.swagger.annotations.Api;
@@ -24,9 +22,6 @@ public class HomeController {
 
     @Autowired
     private ISubjectService subjectService;
-
-    @Autowired
-    private IAdvertiseService advertiseService;
 
     @Autowired
     private ICourseService courseService;
