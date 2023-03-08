@@ -8,7 +8,9 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.AliPay;
+import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.Order;
+import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.IOrderService;
 import com.rabbit.studyweb.utils.AlipayConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class AliPayController {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private ICourseService courseService;
 
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
     public void pay(AliPay aliPay, HttpServletResponse httpResponse) throws Exception {
@@ -100,6 +105,8 @@ public class AliPayController {
                 System.out.println("买家付款时间: " + params.get("gmt_payment"));
                 System.out.println("买家付款金额: " + params.get("buyer_pay_amount"));
 
+                //支付成功的回调
+
                 // 根据订单号查询订单
                 LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
                 wrapper.eq(Order::getNumber, outTradeNo);
@@ -110,8 +117,27 @@ public class AliPayController {
                     order.setStatus("已支付");
                     orderService.updateById(order);
                 }
+
+                //给购买的课程销售数量增加:购买的数量*1
+                String courseId = order.getCourseId();
+                if (courseId.contains(",")){
+                    String[] ids = order.getCourseId().split(",");
+                    for (String i : ids) {
+                        addCourseCount(i);
+                    }
+                }else{
+                    addCourseCount(courseId);
+                }
             }
         }
         return "success";
+    }
+
+    //该课程销售数量+1
+    private void addCourseCount(String i) {
+        Long id = Long.valueOf(i);
+        Course course = courseService.getById(id);
+        course.setBuyCount(course.getBuyCount() + 1);
+        courseService.updateById(course);
     }
 }

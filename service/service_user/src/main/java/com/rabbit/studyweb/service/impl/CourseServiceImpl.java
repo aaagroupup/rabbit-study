@@ -170,6 +170,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return subjectDTOList;
     }
 
+    @Override
+    public boolean addFreeCourse(Integer userId, Long id) {
+        UserCourse userCourse = new UserCourse();
+        userCourse.setUserId(userId);
+        userCourse.setCourseId(id);
+        //给该课程销售数量+1
+        Course course = baseMapper.selectById(id);
+        course.setBuyCount(course.getBuyCount()+1);
+        baseMapper.updateById(course);
+
+        return userCourseService.save(userCourse);
+    }
+
     //转换讲师姓名
     private void getTeacherName(List<Course> courseList) {
         courseList.forEach(course -> course.getParam().put("teacherName", teacherService.getById(course.getTeacherId()).getName()));

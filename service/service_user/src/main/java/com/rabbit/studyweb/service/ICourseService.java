@@ -35,4 +35,6 @@ public interface ICourseService extends IService<Course> {
     List<Course> getCourseQuery(String searchText,List<Long> courseIds);
 
     List<SubjectDTO> getSubjectAndCourse();
+
+    boolean addFreeCourse(Integer userId, Long id);
 }

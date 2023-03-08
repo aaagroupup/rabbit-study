@@ -1,6 +1,7 @@
 package com.rabbit.studyweb.controller;
 
 import com.rabbit.model.pojo.Course;
+import com.rabbit.model.pojo.UserCourse;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 import com.rabbit.studyweb.clients.VodClient;
 import com.rabbit.studyweb.result.R;
@@ -187,14 +188,23 @@ public class CourseController {
         return R.success(map);
     }
 
-
-
     //根据条件查询已买课程
     @GetMapping("/getCourseListByQuery")
     public R getCourseListByQuery(String searchText){
         List<Long>  courseIds = orderService.getPurchasedCourseList();
         List<Course> courseList = courseService.getCourseQuery(searchText,courseIds);
         return R.success(courseList);
+    }
+
+    @PutMapping("addFreeCourse/{userId}/{id}")
+    public R save(@PathVariable Integer userId,@PathVariable Long id){
+        boolean flag =  courseService.addFreeCourse(userId,id);
+
+        if(flag){
+            return R.success("添加成功");
+        }else{
+            return R.error("添加失败!");
+        }
     }
 }
 

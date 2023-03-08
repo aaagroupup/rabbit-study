@@ -33,18 +33,5 @@ public class UserCourseController {
         }
     }
 
-    @PutMapping("add/{userId}/{id}")
-    public R save(@PathVariable Integer userId,@PathVariable Long id){
-        UserCourse userCourse = new UserCourse();
-        userCourse.setUserId(userId);
-        userCourse.setCourseId(id);
-        boolean flag = userCourseService.save(userCourse);
-        if(flag){
-            return R.success("添加成功");
-        }else{
-            return R.error("添加失败!");
-        }
-    }
-
 }
 
