@@ -39,4 +39,7 @@ public class Constants {
     public static String default_role="普通用户";
     public static String order_status="待支付";
 
+
+    public static String OSS_URL="https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/";
+
 }

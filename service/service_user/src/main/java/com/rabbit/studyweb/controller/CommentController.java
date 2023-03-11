@@ -3,9 +3,12 @@ package com.rabbit.studyweb.controller;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.rabbit.model.pojo.User;
+import com.rabbit.studyweb.common.Constants;
 import com.rabbit.studyweb.result.R;
 import com.rabbit.model.pojo.Comment;
 import com.rabbit.studyweb.service.ICommentService;
+import com.rabbit.studyweb.service.UserService;
 import com.rabbit.studyweb.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,9 @@ public class CommentController {
     @Autowired
     private ICommentService commentService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/tree/{articleId}")
     public R<List<Comment>> findCommentDetail(@PathVariable Integer articleId){
         List<Comment> commentList = commentService.findCommentDetail(articleId);//查询出文章下所有的评论
@@ -36,6 +42,9 @@ public class CommentController {
 
         //设置评论的子节点（该评论下的所有回复）
         for (Comment origin : originList) {
+            //设置当前用户数据
+            User user = userService.getById(origin.getUserId());
+            origin.setAvatar(Constants.OSS_URL+user.getAvatarUrl());
             //找到所有子评论的集合
             List<Comment> childrenComments = commentList.stream().filter(comment -> origin.getId().equals(comment.getOriginId())).collect(Collectors.toList());
 
@@ -58,6 +67,8 @@ public class CommentController {
                     comment.setPUserId(v.getUserId());
                     comment.setPNickname(v.getNickname());
                 });
+                User user1 = userService.getById(comment.getUserId());
+                comment.setAvatar(Constants.OSS_URL+user1.getAvatarUrl());
 
             });
             origin.setChildren(childrenComments);
@@ -75,6 +86,9 @@ public class CommentController {
 
         //设置评论的子节点（该评论下的所有回复）
         for (Comment origin : originList) {
+            //设置当前用户数据
+            User user = userService.getById(origin.getUserId());
+            origin.setAvatar(Constants.OSS_URL+user.getAvatarUrl());
             //找到所有子评论的集合
             List<Comment> childrenComments = commentList.stream().filter(comment -> origin.getId().equals(comment.getOriginId())).collect(Collectors.toList());
 
@@ -97,7 +111,8 @@ public class CommentController {
                     comment.setPUserId(v.getUserId());
                     comment.setPNickname(v.getNickname());
                 });
-
+                User user1 = userService.getById(comment.getUserId());
+                comment.setAvatar(Constants.OSS_URL+user1.getAvatarUrl());
             });
             origin.setChildren(childrenComments);
         }

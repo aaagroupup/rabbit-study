@@ -49,7 +49,6 @@ studyweb:
   secretid: LTAI5tPHmsCxAeSo9NqC2b8b
   secretkey: PXFQ9rgisybURtmMR6lJqcllAqNiHb
   bucketname: rabbit-studyweb
-  path: https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/
 
 
 #阿里云支付配置

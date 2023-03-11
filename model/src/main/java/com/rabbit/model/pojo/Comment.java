@@ -64,6 +64,10 @@ public class Comment implements Serializable {
     private String nickname;
 
     @TableField(exist = false)
+    private String avatar;
+
+
+    @TableField(exist = false)
     private List<Comment> children;
 
 
