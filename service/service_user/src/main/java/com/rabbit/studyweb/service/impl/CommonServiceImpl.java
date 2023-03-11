@@ -4,7 +4,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.aliyun.oss.model.PutObjectResult;
 import com.rabbit.studyweb.service.CommonService;
 import com.rabbit.studyweb.utils.OSSUtil;
 import org.springframework.stereotype.Service;
@@ -23,13 +22,9 @@ public class CommonServiceImpl implements CommonService {
         String accessKeySecret =OSSUtil.ACCESS_KEY_SECRET;
 
         String bucketName =OSSUtil.BUCKET_NAME;
-
         //文件名称,去重
         String objectName = UUID.randomUUID().toString().replaceAll("-","")+
                 file.getOriginalFilename();
-        //对文件分组，根据日期分组
-//        String dateTime=new DateTime().toString("yyyy/MM/dd");
-//        objectName=dateTime+"/"+objectName;
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
@@ -43,9 +38,7 @@ public class CommonServiceImpl implements CommonService {
             putObjectRequest.setProcess("true");
 
             // 上传文件。
-            PutObjectResult result = ossClient.putObject(putObjectRequest);
-            //返回文件上传路径
-            String url="https://"+bucketName+".cos."+endpoint+".aliyuncs.com/"+objectName;
+            ossClient.putObject(putObjectRequest);
             return objectName;
         } catch (Exception oe) {
             oe.printStackTrace();

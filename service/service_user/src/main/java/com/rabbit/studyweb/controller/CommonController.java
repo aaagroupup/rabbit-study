@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * 文件上传和下载
@@ -41,8 +46,7 @@ public class CommonController {
     public void download(String name, HttpServletResponse response){
         try {
             //输入流，通过输入流读取文件内容
-            String url="https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/";
-            FileInputStream fileInputStream = new FileInputStream(url+name);
+            FileInputStream fileInputStream = new FileInputStream(basePath+name);
 
             //输出流，通过输出流将文件写回浏览器，在浏览器展示图片basePath
             ServletOutputStream outputStream = response.getOutputStream();

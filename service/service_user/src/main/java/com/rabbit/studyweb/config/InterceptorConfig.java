@@ -16,7 +16,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
             "/login/**",
             "/aliPay/**",
             "/user/updatePassword",
-            "/subject/**",
             "/vod/**",
             "/home/**"
     };
