@@ -15,6 +15,7 @@ import com.rabbit.studyweb.service.IRoleMenuService;
 import com.rabbit.studyweb.service.IRoleService;
 import com.rabbit.studyweb.service.SubMenuService;
 import com.rabbit.studyweb.service.UserService;
+import com.rabbit.studyweb.utils.MD5Util;
 import com.rabbit.studyweb.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -122,6 +123,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public boolean updatePassword(UserPasswordDTO userPasswordDTO){
+        String newPwd = MD5Util.getMd5Plus(userPasswordDTO.getNewPassword());
+        String oldPwd = MD5Util.getMd5Plus(userPasswordDTO.getPassword());
+        userPasswordDTO.setPassword(oldPwd);
+        userPasswordDTO.setNewPassword(newPwd);
         return userMapper.updatePassword(userPasswordDTO);
     }
 
@@ -146,13 +151,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
                 return false;
             } else {
                 User user = new User();
-                user.setPassword(userDTO.getPassword());
+                String pwd = MD5Util.getMd5Plus(userDTO.getPassword());
+                user.setPassword(pwd);
                 user.setTelephone(phone);
-                //如果用户登录成功，删除Redis中缓存的验证码
+                //如果用户修改成功，删除Redis中缓存的验证码
                 redisTemplate.delete(phone);
                 return userMapper.updatePasswordByTel(user);
             }
-
         }else{
             return false;
         }
