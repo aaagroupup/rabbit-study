@@ -23,4 +23,6 @@ public interface IArticleService extends IService<Article> {
     boolean addScore(Integer id, Integer score);
 
     List<Article> getArticleByHot(String query, int currentPage, int pageSize);
+
+    List<Article> getAdv(String query, int currentPage, int pageSize);
 }

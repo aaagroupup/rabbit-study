@@ -83,4 +83,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return baseMapper.getArticleByHot(query,currentPage,pageSize);
     }
 
+    @Override
+    public List<Article> getAdv(String query, int currentPage, int pageSize) {
+        return baseMapper.getAdv(query,currentPage,pageSize);
+    }
+
 }

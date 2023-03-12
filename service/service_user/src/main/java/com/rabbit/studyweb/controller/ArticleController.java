@@ -147,5 +147,15 @@ public class ArticleController {
         return R.success("评价成功");
     }
 
+    @GetMapping("/getAdv")
+    public R getAdv(QueryInfo queryInfo){
+        int currentPage= queryInfo.getPageSize()*(queryInfo.getCurrentPage()-1);
+        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Article::getType,queryInfo.getQuery());
+        int count = (int) articleService.count(wrapper);
+        List<Article> articleList = articleService.getAdv(queryInfo.getQuery(), currentPage, queryInfo.getPageSize());
+        return R.success(articleList,count);
+    }
+
 }
 
