@@ -19,12 +19,12 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') limit #{currentPage},#{pageSize}")
+    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') and type='话题' limit #{currentPage},#{pageSize}")
     List<Article> getAllArticle(String name, int currentPage, int pageSize);
 
-    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') order by time desc limit #{currentPage},#{pageSize}")
+    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') and type='话题' order by time desc limit #{currentPage},#{pageSize}")
     List<Article> getArticleByTime(String name, int currentPage, int pageSize);
 
-    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') order by hot desc limit #{currentPage},#{pageSize}")
+    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') and type='话题' order by hot desc limit #{currentPage},#{pageSize}")
     List<Article> getArticleByHot(String name, int currentPage, int pageSize);
 }

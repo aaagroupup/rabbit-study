@@ -25,7 +25,10 @@ public class UserArticleScoreServiceImpl extends ServiceImpl<UserArticleScoreMap
         wrapper.eq(UserArticleScore::getUserId, TokenUtils.getCurrentUser().getId())
                         .eq(UserArticleScore::getArticleId,articleId);
         UserArticleScore userArticleScore = baseMapper.selectOne(wrapper);
-        Integer score = userArticleScore.getScore();
-        return score;
+        if(userArticleScore==null){
+            return 0;
+        }else{
+            return userArticleScore.getScore();
+        }
     }
 }

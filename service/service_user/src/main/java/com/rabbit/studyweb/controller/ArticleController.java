@@ -80,6 +80,7 @@ public class ArticleController {
          if(article.getId()==null){//新增
              article.setTime(DateUtil.now());
              article.setHot(0);
+             article.setType(article.getType()==null?"话题":article.getType());
              article.setNickname(TokenUtils.getCurrentUser().getNickname());
          }
         boolean flag = articleService.save(article);

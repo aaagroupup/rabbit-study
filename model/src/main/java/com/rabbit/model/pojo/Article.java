@@ -26,22 +26,25 @@ public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      private Integer id;
+    private Integer id;
 
-      @ApiModelProperty("标题")
-      private String name;
+    @ApiModelProperty("标题")
+    private String name;
 
-      @ApiModelProperty("内容")
-      private String content;
+    @ApiModelProperty("内容")
+    private String content;
 
-      @ApiModelProperty("发布人")
-      private String nickname;
+    @ApiModelProperty("发布人")
+    private String nickname;
 
-      @ApiModelProperty("发布时间")
-      private String time;
+    @ApiModelProperty("发布时间")
+    private String time;
 
-      @ApiModelProperty("热度")
-      private Integer hot;
+    @ApiModelProperty("热度")
+    private Integer hot;
+
+    @ApiModelProperty("类型")
+    private String type;
 
                     
 }
