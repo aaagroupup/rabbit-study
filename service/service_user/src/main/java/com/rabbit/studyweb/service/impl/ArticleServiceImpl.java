@@ -42,9 +42,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public List<Article> getArticleByTime() {
-        List<Article> articleList=baseMapper.getArticleByTime();
-        return articleList;
+    public List<Article> getArticleByTime(String query, int currentPage, int pageSize) {
+        return baseMapper.getArticleByTime(query,currentPage,pageSize);
     }
 
     @Override
@@ -80,8 +79,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public List<Article> getArticleByHot() {
-        List<Article> articleList=baseMapper.getArticleByHot();
-        return articleList;
+    public List<Article> getArticleByHot(String query, int currentPage, int pageSize) {
+        return baseMapper.getArticleByHot(query,currentPage,pageSize);
     }
+
 }

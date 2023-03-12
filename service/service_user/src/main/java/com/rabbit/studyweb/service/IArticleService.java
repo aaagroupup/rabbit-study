@@ -18,9 +18,9 @@ public interface IArticleService extends IService<Article> {
 
     List<Article> getAllArticle(String query, int currentPage, int pageSize);
 
-    List<Article> getArticleByTime();
+    List<Article> getArticleByTime(String query, int currentPage, int pageSize);
 
     boolean addScore(Integer id, Integer score);
 
-    List<Article> getArticleByHot();
+    List<Article> getArticleByHot(String query, int currentPage, int pageSize);
 }

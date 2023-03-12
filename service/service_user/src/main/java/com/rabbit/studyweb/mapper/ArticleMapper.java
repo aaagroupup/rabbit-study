@@ -22,9 +22,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
     @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') limit #{currentPage},#{pageSize}")
     List<Article> getAllArticle(String name, int currentPage, int pageSize);
 
-    @Select("select * from article order BY time desc")
-    List<Article> getArticleByTime();
+    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') order by time desc limit #{currentPage},#{pageSize}")
+    List<Article> getArticleByTime(String name, int currentPage, int pageSize);
 
-    @Select("select * from article order BY hot desc")
-    List<Article> getArticleByHot();
+    @Select("select * from article where name like concat('%',replace(#{name},' ',''),'%') order by hot desc limit #{currentPage},#{pageSize}")
+    List<Article> getArticleByHot(String name, int currentPage, int pageSize);
 }

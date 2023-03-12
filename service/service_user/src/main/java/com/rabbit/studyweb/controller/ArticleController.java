@@ -119,14 +119,22 @@ public class ArticleController {
     }
 
     @GetMapping("/getArticleByHot")
-    public R getArticleByHot(){
-        List<Article> articleList=articleService.getArticleByHot();
-        return R.success(articleList);
+    public R getArticleByHot(QueryInfo queryInfo){
+        int currentPage= queryInfo.getPageSize()*(queryInfo.getCurrentPage()-1);
+        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(Article::getName,queryInfo.getQuery());
+        int count = (int) articleService.count(wrapper);
+        List<Article> articleList = articleService.getArticleByHot(queryInfo.getQuery(), currentPage, queryInfo.getPageSize());
+        return R.success(articleList,count);
     }
     @GetMapping("/getArticleByTime")
-    public R getArticleByTime(){
-        List<Article> articleList=articleService.getArticleByTime();
-        return R.success(articleList);
+    public R getArticleByTime(QueryInfo queryInfo){
+        int currentPage= queryInfo.getPageSize()*(queryInfo.getCurrentPage()-1);
+        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(Article::getName,queryInfo.getQuery());
+        int count = (int) articleService.count(wrapper);
+        List<Article> articleList = articleService.getArticleByTime(queryInfo.getQuery(), currentPage, queryInfo.getPageSize());
+        return R.success(articleList,count);
     }
 
     @PutMapping("/addScore/{id}/{score}")
