@@ -16,6 +16,11 @@ public class LoginController {
     private LoginService loginService;
 
 
+    /**
+     * 账号登录
+     * @param user
+     * @return
+     */
     @PostMapping("/accountLogin")
     public R<User> login(@RequestBody UserDTO user){
         return loginService.login(user);

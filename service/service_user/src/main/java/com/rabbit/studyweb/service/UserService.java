@@ -26,4 +26,6 @@ public interface UserService extends IService<User> {
     boolean updatePassword(UserPasswordDTO userPasswordDTO);
 
     boolean updatePasswordByTel(UserDTO userDTO);
+
+    boolean findTelIsExist(String phone);
 }

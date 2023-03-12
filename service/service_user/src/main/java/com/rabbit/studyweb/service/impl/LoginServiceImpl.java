@@ -10,6 +10,7 @@ import com.rabbit.model.pojo.dto.UserDTO;
 import com.rabbit.studyweb.common.Constants;
 import com.rabbit.studyweb.result.R;
 import com.rabbit.studyweb.service.*;
+import com.rabbit.studyweb.utils.MD5Util;
 import com.rabbit.studyweb.utils.SmsConfig;
 import com.rabbit.studyweb.utils.TokenUtils;
 import com.rabbit.studyweb.utils.ValidateCodeUtils;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +54,8 @@ public class LoginServiceImpl implements LoginService {
     //账户登录
     @Override
     public R<User> login(UserDTO user) {
-        UserDTO oneUser = userService.getUserByMessage(user.getUsername(), user.getPassword());
+        String userPwd = MD5Util.getMd5Plus(user.getPassword());
+        UserDTO oneUser = userService.getUserByMessage(user.getUsername(), userPwd);
 //        log.info("user={}",oneUser);
 
         if (oneUser!=null){
@@ -176,14 +179,22 @@ public class LoginServiceImpl implements LoginService {
 
         //获取验证码
         String code = userDTO.getCode().toString();
+
+        //对密码进行加密
+        String password = MD5Util.getMd5Plus(userDTO.getPassword());
         //从Redis中获取缓存的验证码
         String  codeSession= (String) redisTemplate.opsForValue().get(phone);
         User user = new User();
+        //先进行手机号验证，判断是否已经存在
+        boolean isExist= userService.findTelIsExist(phone);
+        if(isExist){
+            return R.error(TEL_EXIST);
+        }
         //进行验证码比对
         if(codeSession!=null&&codeSession.equals(code)) {
             //如果比对成功，说明验证码正确
             user.setUsername(userDTO.getUsername());
-            user.setPassword(userDTO.getPassword());
+            user.setPassword(password);
             user.setEmail(userDTO.getEmail());
             user.setRole(Constants.default_role);
             user.setState(true);

@@ -158,4 +158,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         }
 
     }
+
+    //查找手机号是否存在
+    @Override
+    public boolean findTelIsExist(String phone) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getTelephone,phone);
+        User user = baseMapper.selectOne(wrapper);
+        return user != null;
+    }
 }

@@ -33,6 +33,7 @@ public class Constants {
     public static String updatePasswordByTelSuc_MSG="密码修改成功";
     public static String updatePasswordByTelErr_MSG="用户不存在";
     public static String sendMsgErr="请先输入手机号!!!";
+    public static String TEL_EXIST="该手机号已经注册了！";
 
 
     public static String default_avatar="46120e6f-a6a5-461e-9b98-c254e647f09e.jpeg";
