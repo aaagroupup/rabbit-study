@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.Subject;
 import com.rabbit.model.pojo.Teacher;
+import com.rabbit.model.pojo.dto.HomeMenusDTO;
 import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 import com.rabbit.studyweb.mapper.CourseMapper;
@@ -190,6 +191,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public List<Course> findTopThreeCourse() {
         return baseMapper.findTopThree();
+    }
+
+    //主页面左侧导航栏
+    @Override
+    public List<HomeMenusDTO> getMenus() {
+        List<HomeMenusDTO> homeMenusDTOS=new ArrayList<>();
+        LambdaQueryWrapper<Subject> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Subject::getPid,0);
+        List<Subject> subjectList = subjectService.list(queryWrapper);
+        HomeMenusDTO homeMenusDTO;
+        for (int i = 0;i < 10; i++) {//只展示前十条
+            Subject subject = subjectList.get(i);
+            homeMenusDTO = new HomeMenusDTO();
+            LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Course::getSubjectPid, subject.getId())
+                    .eq(Course::isStatus, true);
+            List<Course> courseList = baseMapper.selectList(wrapper);
+            if (!courseList.isEmpty()) {
+                homeMenusDTO.setId(subject.getId());
+                homeMenusDTO.setTitle(subject.getTitle());
+                //取课程前十条数据
+                homeMenusDTO.setCourseList(courseList.size() > 10 ? courseList.subList(0, 10) : courseList);
+                homeMenusDTOS.add(homeMenusDTO);
+            }
+        }
+        return homeMenusDTOS;
     }
 
     //转换讲师姓名

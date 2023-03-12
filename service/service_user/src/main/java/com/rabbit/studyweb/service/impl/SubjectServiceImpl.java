@@ -3,7 +3,6 @@ package com.rabbit.studyweb.service.impl;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.Subject;
-import com.rabbit.model.pojo.dto.HomeMenusDTO;
 import com.rabbit.model.pojo.vo.SubjectEeVo;
 import com.rabbit.studyweb.exception.StudyWebException;
 import com.rabbit.studyweb.listener.SubjectListener;
@@ -32,8 +31,6 @@ import java.util.List;
 @Service
 public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> implements ISubjectService {
 
-    @Autowired
-    private SubjectMapper subjectMapper;
 
     @Autowired
     private SubjectListener subjectListener;
@@ -42,7 +39,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
     public List<Subject> selectSubjectList(Long id) {
         LambdaQueryWrapper<Subject> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Subject::getPid,id);
-        List<Subject> subjectList = subjectMapper.selectList(wrapper);
+        List<Subject> subjectList = baseMapper.selectList(wrapper);
         for (Subject subject : subjectList) {
             Long subjectId = subject.getId();
             boolean isChild= this.isChildren(subjectId);
@@ -62,7 +59,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
             response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
 
             //查询课程分类所有数据
-            List<Subject> subjectList = subjectMapper.selectList(null);
+            List<Subject> subjectList = baseMapper.selectList(null);
 
             List<SubjectEeVo> subjectEeVoList = new ArrayList<>();
             for (Subject subject : subjectList) {
@@ -93,21 +90,15 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
     public List<Subject> getSubjectList() {
         LambdaQueryWrapper<Subject> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Subject::getPid,0);
-        List<Subject> subjectList = subjectMapper.selectList(wrapper);
+        List<Subject> subjectList = baseMapper.selectList(wrapper);
         return subjectList;
-    }
-
-    @Override
-    public List<HomeMenusDTO> getMenus() {
-
-        return baseMapper.getSubjectAndCourse();
     }
 
     //判断是否有下一层数据
     private boolean isChildren(Long subjectId) {
         LambdaQueryWrapper<Subject> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Subject::getPid,subjectId);
-        Long count = subjectMapper.selectCount(wrapper);
+        Long count = baseMapper.selectCount(wrapper);
         return count>0;
     }
 }

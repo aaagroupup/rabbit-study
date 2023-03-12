@@ -32,7 +32,7 @@ public class HomeController {
     @GetMapping("/getMenusAndBanner")
     public R getMenus(){
         //分类
-        List<HomeMenusDTO> list = subjectService.getMenus();
+        List<HomeMenusDTO> list = courseService.getMenus();
         HomeMenusBannerDTO homeMenusBannerDTO = new HomeMenusBannerDTO();
         homeMenusBannerDTO.setHomeMenusList(list);
 

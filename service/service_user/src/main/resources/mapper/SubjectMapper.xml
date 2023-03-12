@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rabbit.studyweb.mapper.SubjectMapper">
-    <resultMap id="getSubjectAndCourse" type="com.rabbit.model.pojo.dto.HomeMenusDTO">
+   <!-- <resultMap id="getSubjectAndCourse" type="com.rabbit.model.pojo.dto.HomeMenusDTO">
         <id property="id" column="id"></id>
         <result property="title" column="title"></result>
-        <collection property="courseList" ofType="com.rabbit.model.pojo.dto.CourseDTO">
+        <collection property="courseList" ofType="com.rabbit.model.pojo.Course">
             <id property="id" column="c_id"></id>
             <result property="title" column="c_title"></result>
             <result property="cover" column="c_cover"></result>
@@ -22,5 +22,5 @@
         on s.id=c.subject_pid
         where c.`status`=1
         order by  s.id
-    </select>
+    </select>-->
 </mapper>

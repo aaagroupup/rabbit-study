@@ -18,6 +18,4 @@ import java.util.List;
  */
 @Mapper
 public interface SubjectMapper extends BaseMapper<Subject> {
-
-    List<HomeMenusDTO> getSubjectAndCourse();
 }

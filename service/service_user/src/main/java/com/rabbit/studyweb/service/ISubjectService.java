@@ -2,8 +2,6 @@ package com.rabbit.studyweb.service;
 
 import com.rabbit.model.pojo.Subject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rabbit.model.pojo.dto.HomeMenusDTO;
-import com.rabbit.model.pojo.dto.SubjectDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +24,4 @@ public interface ISubjectService extends IService<Subject> {
     void importData(MultipartFile file);
 
     List<Subject> getSubjectList();
-
-    List<HomeMenusDTO> getMenus();
 }

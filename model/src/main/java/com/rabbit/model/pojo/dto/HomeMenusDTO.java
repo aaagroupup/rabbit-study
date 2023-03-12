@@ -1,5 +1,6 @@
 package com.rabbit.model.pojo.dto;
 
+import com.rabbit.model.pojo.Course;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public class HomeMenusDTO {
 
     private String title;
 
-    private List<CourseDTO> courseList;
+    private List<Course> courseList;
 }

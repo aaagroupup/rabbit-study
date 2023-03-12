@@ -2,6 +2,7 @@ package com.rabbit.studyweb.service;
 
 import com.rabbit.model.pojo.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rabbit.model.pojo.dto.HomeMenusDTO;
 import com.rabbit.model.pojo.dto.SubjectDTO;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
 
@@ -39,4 +40,6 @@ public interface ICourseService extends IService<Course> {
     boolean addFreeCourse(Integer userId, Long id);
 
     List<Course> findTopThreeCourse();
+
+    List<HomeMenusDTO> getMenus();
 }
