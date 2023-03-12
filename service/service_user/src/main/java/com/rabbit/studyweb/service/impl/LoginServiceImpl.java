@@ -67,11 +67,7 @@ public class LoginServiceImpl implements LoginService {
             oneUser.setToken(token);
 
             //根据角色信息查询出角色id
-            String roleName = oneUser.getRole();
-            LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Role::getName,roleName);
-            Role role = roleService.getOne(wrapper);
-            Integer roleId = role.getId();
+            Integer roleId = oneUser.getRoleId();
             //根据角色id查询出所有菜单id
             List<Integer> menuIds = roleMenuService.selectByRoleId(roleId);
             List<SubMenu> menus = subMenuService.listByIds(menuIds);
@@ -113,12 +109,7 @@ public class LoginServiceImpl implements LoginService {
 
             //设置token
             String token = TokenUtils.genToken(oneUser.getId().toString(), oneUser.getPassword());
-            //根据角色信息查询出角色id
-            String roleName = oneUser.getRole();
-            LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.eq(Role::getName,roleName);
-            Role role = roleService.getOne(queryWrapper);
-            Integer roleId = role.getId();
+            Integer roleId = oneUser.getRoleId();
             //根据角色id查询出所有菜单id
             List<Integer> menuIds = roleMenuService.selectByRoleId(roleId);
             List<SubMenu> menus = subMenuService.listByIds(menuIds);
@@ -128,7 +119,7 @@ public class LoginServiceImpl implements LoginService {
             user.setUsername(oneUser.getUsername());
             user.setNickname(oneUser.getNickname());
             user.setPassword(oneUser.getPassword());
-            user.setRole(oneUser.getRole());
+            user.setRoleId(oneUser.getRoleId());
             user.setState(oneUser.isState());
             user.setTelephone(oneUser.getTelephone());
             user.setAvatarUrl(oneUser.getAvatarUrl());
@@ -196,7 +187,7 @@ public class LoginServiceImpl implements LoginService {
             user.setUsername(userDTO.getUsername());
             user.setPassword(password);
             user.setEmail(userDTO.getEmail());
-            user.setRole(Constants.default_role);
+            user.setRoleId(5);
             user.setState(true);
             user.setTelephone(userDTO.getTelephone());
             user.setAvatarUrl(Constants.default_avatar);

@@ -37,7 +37,6 @@ public class Constants {
 
 
     public static String default_avatar="46120e6f-a6a5-461e-9b98-c254e647f09e.jpeg";
-    public static String default_role="普通用户";
     public static String order_status="待支付";
 
 

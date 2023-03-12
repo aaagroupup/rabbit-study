@@ -72,9 +72,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         }
         //设置用户状态
         user.setState(true);
-        if(StrUtil.isBlank(user.getRole())){//用户没有指定角色，默认为普通成员
-            user.setRole(Constants.default_role);
-        }
+        //用户没有指定角色，默认为普通成员
+        user.setRoleId(5);
         return userMapper.addUser(user);
     }
 
@@ -104,11 +103,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         user.setToken(token);
 
         //根据角色信息查询出角色id
-        String roleName = user.getRole();
-        LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Role::getName,roleName);
-        Role role = roleService.getOne(wrapper);
-        Integer roleId = role.getId();
+
+        Integer roleId = user.getRoleId();
         //根据角色id查询出所有菜单id
         List<Integer> menuIds = roleMenuService.selectByRoleId(roleId);
         List<SubMenu> menus = subMenuService.listByIds(menuIds);
