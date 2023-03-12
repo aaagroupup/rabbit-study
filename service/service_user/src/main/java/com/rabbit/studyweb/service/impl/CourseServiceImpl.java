@@ -201,7 +201,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         queryWrapper.eq(Subject::getPid,0);
         List<Subject> subjectList = subjectService.list(queryWrapper);
         HomeMenusDTO homeMenusDTO;
-        for (int i = 0;i < 10; i++) {//只展示前十条
+        //只展示前十条
+        for (int i = 0, length = Math.min(subjectList.size(), 10); i < length; i++) {
             Subject subject = subjectList.get(i);
             homeMenusDTO = new HomeMenusDTO();
             LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<>();
@@ -211,8 +212,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             if (!courseList.isEmpty()) {
                 homeMenusDTO.setId(subject.getId());
                 homeMenusDTO.setTitle(subject.getTitle());
-                //取课程前十条数据
-                homeMenusDTO.setCourseList(courseList.size() > 10 ? courseList.subList(0, 10) : courseList);
+                //取课程前五条数据
+                homeMenusDTO.setCourseList(courseList.size() > 5 ? courseList.subList(0, 5) : courseList);
                 homeMenusDTOS.add(homeMenusDTO);
             }
         }
