@@ -30,12 +30,6 @@ public class ArticleController {
     @Autowired
     private IArticleService articleService;
 
-     // 新增或者更新
-     //@PostMapping
-     public boolean save(@RequestBody Article article) {
-         return articleService.saveOrUpdate(article);
-     }
-
       @DeleteMapping("/{id}")
       public Boolean delete(@PathVariable Integer id) {
           return articleService.removeById(id);

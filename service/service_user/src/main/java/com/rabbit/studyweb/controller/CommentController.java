@@ -123,20 +123,23 @@ public class CommentController {
      // 新增或者更新
      @PostMapping
      public R<String> save(@RequestBody Comment comment) {
-        if(comment.getId()==null){//新增用户
-             comment.setUserId(TokenUtils.getCurrentUser().getId());
-             comment.setTime(DateUtil.now());
+        if(comment.getId()==null){//新增评论
+            if(comment.getContent()==null||comment.getContent().length()==0){
+                return R.error("请您输入评论");
+            }else{
+                comment.setUserId(TokenUtils.getCurrentUser().getId());
+                comment.setTime(DateUtil.now());
 
-             if(comment.getPid()!=null){//如果新增的评论为回复，则处理
-                 Integer pid = comment.getPid();
-                 Comment pComment = commentService.getById(pid);//查询出父评论
-                 if(pComment.getOriginId()!=null){//如果当前的父级有祖宗，那么就设置相同的祖宗，说明这个回复是第三级以下的回复
-                     comment.setOriginId(pComment.getOriginId());
-                 }else{//否则就设置父级为当前回复的祖宗，说明这是第一级的回复
-                     comment.setOriginId(comment.getPid());
-                 }
-             }
-
+                if(comment.getPid()!=null){//如果新增的评论为回复，则处理
+                    Integer pid = comment.getPid();
+                    Comment pComment = commentService.getById(pid);//查询出父评论
+                    if(pComment.getOriginId()!=null){//如果当前的父级有祖宗，那么就设置相同的祖宗，说明这个回复是第三级以下的回复
+                        comment.setOriginId(pComment.getOriginId());
+                    }else{//否则就设置父级为当前回复的祖宗，说明这是第一级的回复
+                        comment.setOriginId(comment.getPid());
+                    }
+                }
+            }
         }
          boolean flag = commentService.saveOrUpdate(comment);
         if(!flag){
