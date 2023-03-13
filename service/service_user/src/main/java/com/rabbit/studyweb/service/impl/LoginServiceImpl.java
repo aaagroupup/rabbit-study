@@ -3,6 +3,7 @@ package com.rabbit.studyweb.service.impl;
 import cn.hutool.core.lang.id.NanoId;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.rabbit.model.pojo.CountTime;
 import com.rabbit.model.pojo.Role;
 import com.rabbit.model.pojo.SubMenu;
 import com.rabbit.model.pojo.User;
@@ -21,10 +22,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.rabbit.studyweb.common.Constants.*;
@@ -37,8 +35,6 @@ public class LoginServiceImpl implements LoginService {
     private UserService userService;
 
     @Autowired
-    private IRoleService roleService;
-    @Autowired
     private IRoleMenuService roleMenuService;
 
     @Autowired
@@ -50,6 +46,8 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private SmsConfig smsConfig;
 
+    @Autowired
+    private ICountTimeService countTimeService;
 
     //账户登录
     @Override
@@ -74,6 +72,7 @@ public class LoginServiceImpl implements LoginService {
             //log.info("menus={}",menus);
             oneUser.setMenus(menus);
 
+            setLoginCount();
             return R.success(oneUser,loginSuc_MSG);
         }else {
             return R.error(loginErr_MSG);
@@ -125,6 +124,9 @@ public class LoginServiceImpl implements LoginService {
             user.setAvatarUrl(oneUser.getAvatarUrl());
             user.setToken(token);
             user.setMenus(menus);
+
+            //设置登录人数+1
+            setLoginCount();
 
             //如果用户登录成功，删除Redis中缓存的验证码
             redisTemplate.delete(phone);
@@ -208,5 +210,28 @@ public class LoginServiceImpl implements LoginService {
         //如果用户注册成功，删除Redis中缓存的验证码
         redisTemplate.delete(phone);
         return R.success(Constants.registerSuc_MSG);
+    }
+
+    //设置登录人数+1
+    private void setLoginCount() {
+
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH) + 1;
+        String time=year+"年"+month+"月";
+
+        LambdaQueryWrapper<CountTime> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CountTime::getTime,time);
+        CountTime one = countTimeService.getOne(wrapper);
+        CountTime countTime;
+        if(one==null){
+            countTime = new CountTime();
+            countTime.setCount(1);
+            countTime.setTime(time);
+            countTimeService.save(countTime);
+        }else{
+            one.setCount(one.getCount()+1);
+            countTimeService.updateById(one);
+        }
     }
 }

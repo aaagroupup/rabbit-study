@@ -21,9 +21,9 @@ public class CodeGenerator {
         String password="sun2559525655";
 
         /*输出路径*/
-        String outPath="C:\\Users\\sun\\IdeaProjects\\studyweb_parent\\service\\service_vod"+"/src/main/java";
+        String outPath="C:\\Users\\sun\\IdeaProjects\\studyweb_parent\\service\\service_user"+"/src/main/java";
         /*mapper路径*/
-        String mapperPath="C:\\Users\\sun\\IdeaProjects\\studyweb_parent\\service\\service_vod"+"/src/main/resources/mapper";
+        String mapperPath="C:\\Users\\sun\\IdeaProjects\\studyweb_parent\\service\\service_user"+"/src/main/resources/mapper";
 
         FastAutoGenerator.create(url,username,password )
                 .globalConfig(builder -> {
@@ -39,7 +39,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml,mapperPath)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("user_article_score") // 设置需要生成的表名
+                    builder.addInclude("sys_count_time") // 设置需要生成的表名
                             .addTablePrefix("t_","sys_","tb_"); // 设置过滤表前缀
                 })
                 //.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
