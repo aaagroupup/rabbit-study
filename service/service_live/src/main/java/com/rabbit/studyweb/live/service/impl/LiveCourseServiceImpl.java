@@ -12,7 +12,7 @@ import com.rabbit.model.pojo.vo.LiveCourseConfigVo;
 import com.rabbit.model.pojo.vo.LiveCourseGoodsView;
 import com.rabbit.model.pojo.vo.LiveCourseVo;
 import com.rabbit.studyweb.exception.StudyWebException;
-import com.rabbit.studyweb.live.clients.TeacherClient;
+import com.rabbit.studyweb.live.clients.UserClient;
 import com.rabbit.studyweb.live.mapper.LiveCourseMapper;
 import com.rabbit.studyweb.live.mtcloud.CommonResult;
 import com.rabbit.studyweb.live.mtcloud.MTCloud;
@@ -40,7 +40,7 @@ import java.util.List;
 public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCourse> implements ILiveCourseService {
 
     @Autowired
-    private TeacherClient teacherClient;
+    private UserClient userClient;
 
     @Autowired
     private MTCloud mtCloud;
@@ -71,14 +71,14 @@ public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCou
             //每个课程讲师id
             Long teacherId = liveCourse.getTeacherId();
             //根据讲师id查询讲师信息
-            Teacher teacher = teacherClient.getTeacherInfo(teacherId);
+            Teacher teacher = userClient.getTeacherInfo(teacherId);
             //进行封装
             if(teacher!=null){
                 liveCourse.getParam().put("teacherName",teacher.getName());
                 liveCourse.getParam().put("level",teacher.getLevel());
             }
             Long subjectId = liveCourse.getSubjectId();
-            String subjectName = teacherClient.getSubjectName(subjectId);
+            String subjectName = userClient.getSubjectName(subjectId);
             liveCourse.getParam().put("subjectName",subjectName);
 
         }
@@ -93,7 +93,7 @@ public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCou
         BeanUtils.copyProperties(liveCourseVo,liveCourse);
 
         //获取讲师信息
-        Teacher teacher =  teacherClient.getTeacherInfo(liveCourseVo.getTeacherId());
+        Teacher teacher =  userClient.getTeacherInfo(liveCourseVo.getTeacherId());
 
         //调用方法添加直播课程
         //创建map集合，封装直播课程其他参数
@@ -203,7 +203,7 @@ public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCou
         LiveCourse liveCourse = baseMapper.selectById(liveCourseVo.getId());
         BeanUtils.copyProperties(liveCourseVo,liveCourse);
         //讲师
-        Teacher teacher = teacherClient.getTeacherInfo(liveCourseVo.getTeacherId());
+        Teacher teacher = userClient.getTeacherInfo(liveCourseVo.getTeacherId());
 
         HashMap<Object, Object> options = new HashMap<>();
         try {
@@ -296,7 +296,7 @@ public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCou
             liveCourseDTO.setEndTimeString(new DateTime(liveCourseDTO.getEndTime()).toString("HH:mm"));
             //封装讲师
             Long teacherId = liveCourseDTO.getTeacherId();
-            Teacher teacher =  teacherClient.getTeacherInfo(teacherId);
+            Teacher teacher =  userClient.getTeacherInfo(teacherId);
             liveCourseDTO.setTeacher(teacher);
 
             //封装直播状态
@@ -311,7 +311,7 @@ public class LiveCourseServiceImpl extends ServiceImpl<LiveCourseMapper, LiveCou
         //根据课程id获取直播课程信息
         LiveCourse liveCourse = baseMapper.selectById(id);
         //获取用户信息
-        User user = teacherClient.getUserInfo();
+        User user = userClient.getUserInfo();
 
         //封装需要的参数
         HashMap<Object, Object> options = new HashMap<>();
