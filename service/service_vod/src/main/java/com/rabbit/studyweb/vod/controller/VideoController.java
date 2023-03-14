@@ -8,6 +8,7 @@ import com.rabbit.studyweb.result.R;
 import com.rabbit.studyweb.vod.service.IVideoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class VideoController {
      * @return
      */
     @PostMapping("saveVideo")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R saveVideo(@RequestBody Video video){
         if(StrUtil.isEmpty(video.getTitle())){
             return R.error("请输入视频标题");

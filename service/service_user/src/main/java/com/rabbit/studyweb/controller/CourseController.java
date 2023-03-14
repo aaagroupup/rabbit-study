@@ -8,6 +8,7 @@ import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.IOrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -59,6 +60,7 @@ public class CourseController {
      * @return
      */
     @PutMapping("/updateStatus")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> updateStatus(@RequestParam("id") Long id, @RequestParam("status") Boolean status){
 
         boolean flag = courseService.updateStatus(id, status);
@@ -75,6 +77,7 @@ public class CourseController {
      * @return
      */
     @PostMapping("/addCourse")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> addCourse(@RequestBody Course course){
         course.setStatus(false);
         course.setPublishTime(LocalDateTime.now().toString());
@@ -92,6 +95,7 @@ public class CourseController {
      * @return
      */
     @DeleteMapping("/deleteCourse")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> deleteCourse(Long id){
         //先根据课程id查询出视频,之后删除视频
         vodClient.getVideoAndRemove(id);
@@ -119,6 +123,7 @@ public class CourseController {
      * @return
      */
     @PutMapping("/updateCourse")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> updateCourse(@RequestBody Course course){
 
         boolean flag = courseService.updateById(course);
@@ -134,6 +139,7 @@ public class CourseController {
      * @return
      */
     @DeleteMapping("/del/batch")
+    @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> deleteBatch(@RequestBody List<Integer> ids) {
 
         //根据id找到对应的video视频id，之后删除云端视频和本地记录

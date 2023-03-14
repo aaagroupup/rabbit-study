@@ -9,6 +9,7 @@ import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.ISubjectService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,7 @@ public class HomeController {
      * 获取首页导航栏和数据
      */
     @GetMapping("/getMenusAndBanner")
+    @Cacheable(value = "menu-banner")
     public R getMenus(){
         //分类
         List<HomeMenusDTO> list = courseService.getMenus();
@@ -48,6 +50,7 @@ public class HomeController {
      * @return
      */
     @GetMapping("getSubjectAndCourse")
+    @Cacheable(value="front-home-course")
     public R getSubjectAndCourse(){
         List<SubjectDTO>  subjectDTOList=courseService.getSubjectAndCourse();
         return R.success(subjectDTOList);
