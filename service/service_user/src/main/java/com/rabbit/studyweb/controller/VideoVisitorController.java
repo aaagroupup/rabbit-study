@@ -1,7 +1,7 @@
-package com.rabbit.studyweb.vod.controller;
+package com.rabbit.studyweb.controller;
 
 import com.rabbit.studyweb.result.R;
-import com.rabbit.studyweb.vod.service.IVideoVisitorService;
+import com.rabbit.studyweb.service.IVideoVisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

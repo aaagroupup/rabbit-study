@@ -1,9 +1,9 @@
-package com.rabbit.studyweb.vod.service.impl;
+package com.rabbit.studyweb.service.impl;
 
 import com.rabbit.model.pojo.VideoVisitor;
 import com.rabbit.model.pojo.vo.VideoVisitorVo;
-import com.rabbit.studyweb.vod.mapper.VideoVisitorMapper;
-import com.rabbit.studyweb.vod.service.IVideoVisitorService;
+import com.rabbit.studyweb.mapper.VideoVisitorMapper;
+import com.rabbit.studyweb.service.IVideoVisitorService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

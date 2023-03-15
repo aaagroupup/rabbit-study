@@ -1,4 +1,4 @@
-package com.rabbit.studyweb.vod.service.impl;
+package com.rabbit.studyweb.service.impl;
 
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadStreamRequest;
@@ -13,8 +13,8 @@ import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import com.rabbit.studyweb.exception.StudyWebException;
-import com.rabbit.studyweb.vod.service.VodService;
-import com.rabbit.studyweb.vod.utils.OSSUtil;
+import com.rabbit.studyweb.service.VodService;
+import com.rabbit.studyweb.utils.OSSUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

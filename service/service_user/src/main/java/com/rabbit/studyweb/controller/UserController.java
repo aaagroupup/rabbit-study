@@ -6,6 +6,7 @@ import com.rabbit.model.pojo.QueryInfo;
 import com.rabbit.model.pojo.User;
 import com.rabbit.model.pojo.dto.UserDTO;
 import com.rabbit.model.pojo.dto.UserPasswordDTO;
+import com.rabbit.studyweb.service.IRoleService;
 import com.rabbit.studyweb.service.UserService;
 import com.rabbit.studyweb.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -24,16 +25,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private IRoleService roleService;
+
     @GetMapping
     public R<Object> getUserList(QueryInfo queryInfo){
         //获取最大列表数和当前编号
         int userCounts = userService.getUserCounts(queryInfo.getQuery() );
         int currentPage = queryInfo.getPageSize() * (queryInfo.getCurrentPage() - 1);
-//        log.info("userCounts={}",userCounts);
 
         List<User> users = userService.getAllUser( queryInfo.getQuery() , currentPage, queryInfo.getPageSize());
-//        log.info("users={}",users);
-//        log.info("res={}",res);
+        users.forEach(user -> {
+            user.setRoleName(roleService.getById(user.getRoleId()).getName());
+        });
 
         return R.success(users,userCounts);
     }

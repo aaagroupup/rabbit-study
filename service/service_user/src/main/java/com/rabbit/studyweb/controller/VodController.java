@@ -1,7 +1,7 @@
-package com.rabbit.studyweb.vod.controller;
+package com.rabbit.studyweb.controller;
 
 import com.rabbit.studyweb.result.R;
-import com.rabbit.studyweb.vod.service.VodService;
+import com.rabbit.studyweb.service.VodService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

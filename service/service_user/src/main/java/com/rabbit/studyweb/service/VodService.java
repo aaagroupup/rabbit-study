@@ -1,4 +1,4 @@
-package com.rabbit.studyweb.vod.service;
+package com.rabbit.studyweb.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

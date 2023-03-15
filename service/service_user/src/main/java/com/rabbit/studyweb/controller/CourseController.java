@@ -2,10 +2,10 @@ package com.rabbit.studyweb.controller;
 
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.vo.CourseQueryVo;
-import com.rabbit.studyweb.clients.VodClient;
 import com.rabbit.studyweb.result.R;
 import com.rabbit.studyweb.service.ICourseService;
 import com.rabbit.studyweb.service.IOrderService;
+import com.rabbit.studyweb.service.IVideoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -33,7 +33,7 @@ public class CourseController {
     private ICourseService courseService;
 
     @Autowired
-    private VodClient vodClient;
+    private IVideoService videoService;
 
     @Autowired
     private IOrderService orderService;
@@ -98,7 +98,7 @@ public class CourseController {
     @CacheEvict(value = {"menu-banner","front-home-course"})
     public R<String> deleteCourse(Long id){
         //先根据课程id查询出视频,之后删除视频
-        vodClient.getVideoAndRemove(id);
+        videoService.getVideoAndRemove(id);
         boolean flag = courseService.removeById(id);
         if(!flag){
             return R.error(delErr_MSG);
@@ -143,7 +143,7 @@ public class CourseController {
     public R<String> deleteBatch(@RequestBody List<Integer> ids) {
 
         //根据id找到对应的video视频id，之后删除云端视频和本地记录
-        vodClient.delBatchVideo(ids);
+        videoService.delBatchVideo(ids);
         boolean flag = courseService.removeByIds(ids);
         if(!flag){
             return R.error(delErr_MSG);

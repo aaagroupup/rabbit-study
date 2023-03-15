@@ -1,4 +1,4 @@
-package com.rabbit.studyweb.vod.service;
+package com.rabbit.studyweb.service;
 
 import com.rabbit.model.pojo.VideoVisitor;
 import com.baomidou.mybatisplus.extension.service.IService;

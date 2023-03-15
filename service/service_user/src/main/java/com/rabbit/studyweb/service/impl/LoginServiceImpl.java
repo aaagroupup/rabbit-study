@@ -18,6 +18,7 @@ import com.rabbit.studyweb.utils.ValidateCodeUtils;
 import com.zhenzi.sms.ZhenziSmsClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -48,6 +49,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private ICountTimeService countTimeService;
+
+    @Autowired
+    private IEmailService emailService;
+
+    @Value("${spring.mail.username}")
+    private String from;
 
     //账户登录
     @Override
@@ -207,8 +214,11 @@ public class LoginServiceImpl implements LoginService {
         if(!flag){
             return R.error(Constants.registerErr_MSG);
         }
+        //通知邮箱
+        emailService.sendEmail(from,user.getEmail(),"注册通知", REGISTER_EMAIL);
         //如果用户注册成功，删除Redis中缓存的验证码
         redisTemplate.delete(phone);
+
         return R.success(Constants.registerSuc_MSG);
     }
 

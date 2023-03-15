@@ -1,11 +1,11 @@
-package com.rabbit.studyweb.vod.controller;
+package com.rabbit.studyweb.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.Video;
 import com.rabbit.studyweb.exception.StudyWebException;
 import com.rabbit.studyweb.result.R;
-import com.rabbit.studyweb.vod.service.IVideoService;
+import com.rabbit.studyweb.service.IVideoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

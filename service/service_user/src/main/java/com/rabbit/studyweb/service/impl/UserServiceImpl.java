@@ -28,8 +28,7 @@ import java.util.Random;
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private IRoleService roleService;
+
     @Autowired
     private IRoleMenuService roleMenuService;
     @Autowired
@@ -37,6 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Autowired
     private RedisTemplate redisTemplate;
+
 
     @Override
     public UserDTO getUserByMessage(String username, String password) {
@@ -70,15 +70,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         if(StrUtil.isBlank(user.getAvatarUrl())){//给新添加的用户提供一个默认的头像
             user.setAvatarUrl(Constants.default_avatar);
         }
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getTelephone,user.getTelephone());
+        User one = this.getOne(wrapper);
+        if(one!=null){
+            return false;
+        }
         //设置用户状态
         user.setState(true);
         //用户没有指定角色，默认为普通成员
         user.setRoleId(5);
+        user.setPassword(MD5Util.getMd5Plus(user.getPassword()));
         return userMapper.addUser(user);
     }
 
     @Override
     public boolean updateUser(User user) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getTelephone,user.getTelephone());
+        User one = this.getOne(wrapper);
+        if(one!=null){
+            return false;
+        }
         return userMapper.updateUser(user);
     }
 

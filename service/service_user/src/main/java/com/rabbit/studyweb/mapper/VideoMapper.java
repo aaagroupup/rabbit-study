@@ -1,4 +1,4 @@
-package com.rabbit.studyweb.vod.mapper;
+package com.rabbit.studyweb.mapper;
 
 import com.rabbit.model.pojo.Video;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

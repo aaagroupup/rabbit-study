@@ -1,12 +1,12 @@
-package com.rabbit.studyweb.vod.service.impl;
+package com.rabbit.studyweb.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.Video;
-import com.rabbit.studyweb.vod.mapper.VideoMapper;
-import com.rabbit.studyweb.vod.service.IVideoService;
+import com.rabbit.studyweb.mapper.VideoMapper;
+import com.rabbit.studyweb.service.IVideoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.rabbit.studyweb.vod.service.VodService;
+import com.rabbit.studyweb.service.VodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

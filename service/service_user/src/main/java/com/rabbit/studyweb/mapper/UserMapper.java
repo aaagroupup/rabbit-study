@@ -22,8 +22,8 @@ public interface UserMapper extends BaseMapper<User> {
     @Update("update sys_user set state=#{state} where id=#{id}")
     boolean updateState(Integer id,Boolean state);
 
-    @Insert("insert into sys_user(username,password,email,telephone,role,state,nickname,avatar_url) " +
-            "value(#{username},#{password},#{email},#{telephone},#{role},#{state},#{nickname},#{avatarUrl})")
+    @Insert("insert into sys_user(username,password,email,telephone,role_id,state,nickname,avatar_url) " +
+            "value(#{username},#{password},#{email},#{telephone},#{roleId},#{state},#{nickname},#{avatarUrl})")
     boolean addUser(User user);
 
     @Delete("delete from sys_user where id=#{id}")
@@ -32,7 +32,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("select * from sys_user where id=#{id}")
     UserDTO getUpdateUser(Integer id);
 
-    @Update("update sys_user set username=#{username},password=#{password},email=#{email},telephone=#{telephone},role=#{role},nickname=#{nickname},avatar_url=#{avatarUrl} where id=#{id}")
+    @Update("update sys_user set username=#{username},password=#{password},email=#{email},telephone=#{telephone},role_id=#{roleId},nickname=#{nickname},avatar_url=#{avatarUrl} where id=#{id}")
     boolean updateUser(User user);
 
     @Select("select * from sys_user where username=#{username}")

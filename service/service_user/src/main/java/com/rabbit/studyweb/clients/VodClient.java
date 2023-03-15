@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("service-vod")
+//@FeignClient("service-vod")
 public interface VodClient {
 
     @DeleteMapping("/vod/video/getVideoAndRemove")

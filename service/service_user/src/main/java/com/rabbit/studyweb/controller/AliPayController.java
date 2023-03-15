@@ -10,10 +10,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbit.model.pojo.AliPay;
 import com.rabbit.model.pojo.Course;
 import com.rabbit.model.pojo.Order;
+import com.rabbit.studyweb.common.Constants;
 import com.rabbit.studyweb.service.ICourseService;
+import com.rabbit.studyweb.service.IEmailService;
 import com.rabbit.studyweb.service.IOrderService;
 import com.rabbit.studyweb.utils.AlipayConfig;
+import com.rabbit.studyweb.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +47,12 @@ public class AliPayController {
 
     @Autowired
     private ICourseService courseService;
+
+    @Autowired
+    private IEmailService emailService;
+
+    @Value("${spring.mail.username}")
+    private String from;
 
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
     public void pay(AliPay aliPay, HttpServletResponse httpResponse) throws Exception {
@@ -128,6 +138,9 @@ public class AliPayController {
                 }else{
                     addCourseCount(courseId);
                 }
+                String address = TokenUtils.getCurrentUser().getEmail();
+                //邮箱通知
+                emailService.sendEmail(from,address,"订单通知", Constants.ORDER_EMAIL);
             }
         }
         return "success";

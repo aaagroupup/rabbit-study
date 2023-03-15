@@ -42,4 +42,7 @@ public class Constants {
 
     public static String OSS_URL="https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/";
 
+    public static String REGISTER_EMAIL="您已成功注册学习平台账户，请您通过 http://121.199.32.66:8089/login 进行登录,感谢您的使用!";
+    public static String ORDER_EMAIL="您已成功购买学习课程，请您进入 个人中心->我的课程 进行学习观看。";
+
 }

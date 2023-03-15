@@ -31,4 +31,7 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private Integer count;//条数
+
+    @TableField(exist = false)
+    private String roleName;
 }
