@@ -17,8 +17,8 @@ public class CodeGenerator {
     private static void generate(){
         /*连接信息*/
         String url="jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true";
-        String username="root";
-        String password="sun2559525655";
+        String username="";
+        String password="";
 
         /*输出路径*/
         String outPath="C:\\Users\\sun\\IdeaProjects\\studyweb_parent\\service\\service_user"+"/src/main/java";
