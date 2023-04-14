@@ -1,5 +1,5 @@
 server:
-  port: 9382
+  port: 
 spring:
   application:
     name: service-vod
@@ -14,12 +14,12 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://121.199.32.66:3306/studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: sun255952
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: 
+      password: 
   cloud:
     nacos:
-      server-addr: 121.199.32.66:8848 #nacos地址  #80
+      server-addr: 
 
 #mybatis配置
 mybatis-plus:
@@ -33,11 +33,11 @@ mybatis-plus:
 
 #存储位置
 studyweb:
-  endpoint: https://oss-cn-hangzhou.aliyuncs.com
-  secretid: LTAI5tPHmsCxAeSo9NqC2b8b
-  secretkey: PXFQ9rgisybURtmMR6lJqcllAqNiHb
-  bucketname: rabbit-studyweb
-  path: https://rabbit-studyweb.oss-cn-hangzhou.aliyuncs.com/
+  endpoint: 
+  secretid:
+  secretkey: 
+  bucketname: 
+  path: 
 
 ribbon:
   eager-load:
