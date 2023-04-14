@@ -1,5 +1,5 @@
 server:
-  port: 9380
+  port: 
 spring:
   application:
     name: service-live
@@ -9,12 +9,12 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://121.199.32.66:3306/studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: sun255952
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: 
+      password: 
   cloud:
     nacos:
-      server-addr: 121.199.32.66:8848 #nacos地址  #80
+      server-addr: 
 #mybatis配置
 mybatis-plus:
   configuration:
@@ -26,9 +26,8 @@ mybatis-plus:
       id-type: ASSIGN_ID
 
 mtcloud:
-  openId: 55021
-  openToken: 5291cfd4da76a3d4535798c0f663a13d
-
+  openId: 
+  openToken: 
 feign:
   httpclient:
     enabled: true #开启feign对HttpClient的支持
