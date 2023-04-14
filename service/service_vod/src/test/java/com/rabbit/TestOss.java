@@ -13,12 +13,12 @@ import java.io.File;
 public class TestOss {
     public static void main(String[] args) {
         // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
-        String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+        String endpoint = "";
         // 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
-        String accessKeyId = "LTAI5tPHmsCxAeSo9NqC2b8b";
-        String accessKeySecret = "PXFQ9rgisybURtmMR6lJqcllAqNiHb";
+        String accessKeyId = "";
+        String accessKeySecret = "";
         // 填写Bucket名称，例如examplebucket。
-        String bucketName = "rabbit-studyweb";
+        String bucketName = "";
         // 填写Object完整路径，例如exampledir/exampleobject.txt。Object完整路径中不能包含Bucket名称。
         String objectName = "60e443f7-7129-4ca7-a9ac-037a3a4fdaaf.jpg";
         // 创建OSSClient实例。rabbit/web/img/
