@@ -1,5 +1,5 @@
 server:
-  port: 9383
+  port: 
 spring:
   application:
     name: service-user
@@ -14,16 +14,16 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://121.199.32.66:3306/studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: sun255952
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username:
+      password: 
   cloud:
     nacos:
-      server-addr: 121.199.32.66:8848 #nacos地址
+      server-addr: 
   mail:
     host: smtp.qq.com
-    username: 2559525655@qq.com
-    password: yivxjdhtyobrdihe
+    username: 
+    password: 
     properties:
       mail:
         smtp:
@@ -34,10 +34,10 @@ spring:
             required: true
   #redis配置
   redis:
-    host: 121.199.32.66
+    host: 
     #host: 127.0.0.1
     port: 6379
-    password: sun255952
+    password:
     database: 0
     lettuce:
       pool:
@@ -66,25 +66,25 @@ mybatis-plus:
 
 #存储位置
 studyweb:
-  endpoint: https://oss-cn-hangzhou.aliyuncs.com
-  secretid: LTAI5tPHmsCxAeSo9NqC2b8b
-  secretkey: PXFQ9rgisybURtmMR6lJqcllAqNiHb
+  endpoint: 
+  secretid:
+  secretkey: 
   bucketname: rabbit-studyweb
 
 
 #阿里云支付配置
 alipay:
   appId: 2016102600763473
-  appPrivateKey: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDDVLnhmbCGYwRfe+8K0KPVyxeZIXlK095HAW9Aiuq9tb3ikDh4zlxoJzmv+rUZtRQestoo7PCYNUTb2vaDOv9WaJ+vfkPSHl7+rx0PsG0fFPeIRyTHTQtjpLBEq1kuXojcnSCO41rhygmb3MJNYEZTLY+BdeaTMzWLSaL0O/ivmM4OvvhWdEhHUL7kotWL5b+jXAxu4bfJvlijAHt/7M7S3XPs70WfZpv6bYtnsz2tS0J7p3rVXVeYHIClIMpCgDUKzg2+O6CNoQBURLMjUNgcd8dYPU/i3ZbmDN2tAbm4qAaZAFNvvixkiQ8GmbXfQjQdrHRXsndWhaXsrIZrFHTHAgMBAAECggEBAK+QgrZUZkaTzwVnpnZpCykJLv+zB4sLHVli37T6Z3z2UmLGUAu9J29x+jbDN22QxTHGfbGVLbcRAgA+MZ3INGJdDVI2Qg0kwStXB97nK11pggcaMuNzy03XY5uFC1ZTH95y2CW2EiSpbLOL25SiePMgG0E4UHNz7qdwGyg8kwx3zgIKgp4GEbqCwAn+bXyI2svvql53nBzE0x6OPmUNWu+8OuysEtWLwjjDff9ft9pGb4+QUPdxbp0rqE3dEe5FwirsLeEodg2R/Yi3m2192pMyMeLf3rd38trJ8nmb6JlnKGzST23BtEB2ia6gVOtQHS703WrrCx6iICCVUYHwDCECgYEA+oA/rikrDi6pe76rtMZ5rVDRPaha/xfcW9vMLsoRLb7YuEP/BwbmUNq5TtM4BgSCSrTD6XUg0wPSX4BijvgeqFpBJAvQ90kTEfXGZnr2r2f635Bfo02mQr5IhyhPIKMJaM5wQVW1Op+Lx+eaa4j2BwcWNzt7F6AV/qPBwvPYHLECgYEAx55vn7z92fBfa7yNMm3XKNFxXo6uNN70iD5MyzdcTPuqz9R9UlCo1XIJGgV3C1bK4X2f+zFijtm8tqor+Q1N0j1hZKFW/YlF21/FPP6JPjniax/phegRwZ5jEuI/YF44YvkMbO6yPNqxsR+JO9lhgiW/8gnnmVDQIYRNjTfWpvcCgYEAuj6cGgr1vgenbx+mXjOqx9dsmqEPdtXwukNDHg6SkyZvzyCO/lR87OSSHi8gWikEDjMz7eFt1DXlNagonw+PC7B++iPm69Ri31mSdyM5QdTXS1z2Hl5fHQSIvCSWIDfXiRrjj0///GQe8zQZNZaRBUyZkdshe8FEWRy7tQzDQyECgYEAgYYQL7nVjUAm6iUiCQK0hUvBH/W8m5m/WVfzRDjbryftIYVi+7JSmoyv0y6Qm87pPX7h+3+Dz+UAShYJCkTTpgMl2sHFTCVyKnHt7THLo5CzlYbTY4u9WcCH0Iz1SnZYZ//pTBVlmY7dlWw9A5R9bJFKBqbem+CP6++I0oTUxukCgYEApmooMXYoXPIbEHiWxGzUEOFaOsGJaYEOIcJjbUqB+FoS2wFdPdKyomjwOF83+j3orPEL5SSXbMIRyxZNcuJAvXeEwJ6byx6d6txli1vfVfcfgn8YIaCZdYTgRTNGYYC4c6WrQ5Rt1kWO4oTVPPAsk2WT7sD99PpIFer5y3ICbkw=
-  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmydAaVLYbtvWKdaZhN0zDAi8sym6nfCwO18hQfZZOtwIFoR90+CkxNCOtoLOPC3+ksB6wwoqzhn33v4cTkzmHJjhlN9MFVhCYWIw4z0RkjvE1snlMi8F+lynPIv9kRUDnv5N9tabagfmouuhJZ1Ly145yT+2MBOy20Jueaqj01xFak+kzgjqK4K/8Cid4kfLCj7t8btiOFWexfXy5ZLJHOsOvaiyrwkI7+pDe9eKiEwZQ7ixqwO6PSQsVf1swOjZMi30Lj8RcfsfrH9XAx7X2t1Qj945QEcCnT725gBqEJUmUb9bCpD9ioSas/USNqFMgS/iJ8n0gnAK1N8vueSykQIDAQAB
-  notifyUrl: http://121.199.32.66:9383/aliPay/notify
-  returnUrl: http://121.199.32.66:8089/front/order
+  appPrivateKey:
+  alipayPublicKey:
+  notifyUrl: http://ip:端口号/aliPay/notify
+  returnUrl: http://ip:端口号/front/order
 
 zhenzikj:
-  url: https://sms_developer.zhenzikj.com
-  appId: 111882
-  appSecret: f52558f7-d9a1-485d-b195-6641308504b0
-  templateId: 11253
+  url:
+  appId: 
+  appSecret: 
+  templateId: 
 ribbon:
   eager-load:
     enabled: true
