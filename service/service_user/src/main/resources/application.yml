@@ -74,7 +74,7 @@ studyweb:
 
 #阿里云支付配置
 alipay:
-  appId: 2016102600763473
+  appId:
   appPrivateKey:
   alipayPublicKey:
   notifyUrl: http://ip:端口号/aliPay/notify
