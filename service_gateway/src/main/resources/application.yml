@@ -1,18 +1,18 @@
 server:
-  port: 9381
+  port: 
 spring:
   application:
     name: service-gateway
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://121.199.32.66:3306/studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: sun255952
+      url: jdbc:mysql:///studyweb?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username:
+      password:
   cloud:
     nacos:
       discovery:
-        server-addr: 121.199.32.66:8848
+        server-addr: 
         #server-addr: localhost:8848
     gateway:
       discovery:
@@ -21,13 +21,13 @@ spring:
           lower-case-service-id: true
       routes:
         - id: service-live # 路由id，自定义，只要唯一即可
-          #uri: http://127.0.0.1:9380 # 路由的目标地址 http就是固定地址
+          #uri: http://127.0.0.1 # 路由的目标地址 http就是固定地址
           uri: lb://service-live
           predicates: # 路由断言，也就是判断请求是否符合路由规则的条件
             - Path=/live/** # 这个是按照路径匹配，只要以/user/开头就符合要求
         - id: service-user
           uri: lb://service-user
-          #uri: http://127.0.0.1:9383
+          #uri: http://127.0.0.1:
           predicates:
             - Path=/**
   main:
